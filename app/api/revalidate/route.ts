@@ -11,9 +11,7 @@ export async function POST(request: Request) {
 
   const body = await request.json();
 
-  console.log(body);
-
-  const tag = body.fields.slug['en-US'];
+  const tag = body.tag;
 
   if (!tag) {
     return NextResponse.json({ message: 'No tag provided' }, { status: 400 });
