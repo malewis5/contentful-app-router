@@ -1,3 +1,4 @@
+import { ContentfulPreviewProvider } from '@/components/contentful-preview-provider';
 import { getAllArticles } from '@/lib/contentful/api';
 import { draftMode } from 'next/headers';
 import Image from 'next/image';
@@ -29,13 +30,13 @@ export default async function Home() {
                   key={article.sys.id}
                   className='h-full flex flex-col rounded-lg shadow-lg overflow-hidden'
                 >
-                  {/* <Image
+                  <Image
                     alt='placeholder'
                     className='aspect-[4/3] object-cover w-full'
                     height='263'
                     src={article.articleImage.url}
                     width='350'
-                  /> */}
+                  />
                   <div className='flex-1 p-6'>
                     <Link href={`/articles/${article.slug}`}>
                       <h3 className='text-2xl font-bold leading-tight text-zinc-900 dark:text-zinc-50  py-4'>
