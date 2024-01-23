@@ -6,6 +6,7 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const secret = searchParams.get('secret');
   const slug = searchParams.get('slug');
+  const bypass = searchParams.get('x-vercel-protection-bypass');
 
   if (!secret || !slug) {
     return new Response('Missing parameters', { status: 400 });
@@ -22,5 +23,5 @@ export async function GET(request: Request) {
   }
 
   draftMode().enable();
-  redirect(`/articles/${article.slug}`);
+  redirect(`/articles/${article.slug}?x-vercel-protection-bypass=${bypass}`);
 }
