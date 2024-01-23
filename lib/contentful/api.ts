@@ -4,6 +4,7 @@ const ARTICLE_GRAPHQL_FIELDS = `
   sys {
     id
   }
+  __typename
   title
   slug
   summary
