@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import '@contentful/live-preview/style.css';
 import { ContentfulPreviewProvider } from '@/components/contentful-preview-provider';
 
 const inter = Inter({ subsets: ['latin'] });
