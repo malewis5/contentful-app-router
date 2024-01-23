@@ -29,7 +29,11 @@ const ARTICLE_GRAPHQL_FIELDS = `
   }
 `;
 
-async function fetchGraphQL(query: string, preview = false) {
+async function fetchGraphQL(
+  query: string,
+  preview = false,
+  tags: [string] = ['']
+) {
   return fetch(
     `https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}`,
     {
@@ -47,7 +51,8 @@ async function fetchGraphQL(query: string, preview = false) {
       body: JSON.stringify({ query }),
       // Associate all fetches for articles with an "articles" cache tag so content can
       // be revalidated or updated from Contentful on publish
-      next: { tags: ['articles'] },
+
+      next: { tags },
     }
   ).then((response) => response.json());
 }
@@ -75,7 +80,8 @@ export async function getAllArticles(
           }
         }
       }`,
-    isDraftMode
+    isDraftMode,
+    ['articles']
   );
   return extractArticleEntries(articles);
 }
@@ -91,7 +97,8 @@ export async function getArticle(slug: string, isDraftMode = false) {
           }
         }
       }`,
-    isDraftMode
+    isDraftMode,
+    [slug]
   );
   return extractArticleEntries(article)[0];
 }
