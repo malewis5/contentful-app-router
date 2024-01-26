@@ -4,8 +4,9 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import Image from 'next/image';
 import { useContentfulLiveUpdates } from '@contentful/live-preview/react';
 import { ContentfulLivePreview } from '@contentful/live-preview';
+import { ContentfulArticleProps } from '@/app/articles/[slug]/page';
 
-export const Article = ({ article }: any) => {
+export const Article = ({ article }: { article: ContentfulArticleProps }) => {
   const updatedArticle = useContentfulLiveUpdates(article);
 
   return (
@@ -37,7 +38,7 @@ export const Article = ({ article }: any) => {
               fieldId: 'authorName',
             })}
           >
-            by: {updatedArticle.authorName}
+            by: {updatedArticle.author}
           </p>
         </div>
       </div>
@@ -46,7 +47,7 @@ export const Article = ({ article }: any) => {
           alt='Article Image'
           className='aspect-video w-full overflow-hidden rounded-xl object-cover'
           height='365'
-          src={updatedArticle.articleImage.url}
+          src={updatedArticle?.heroImage?.url ?? 'https://placehold.co/650x365'}
           width='650'
           {...ContentfulLivePreview.getProps({
             entryId: article.sys.id,

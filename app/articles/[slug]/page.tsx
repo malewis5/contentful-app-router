@@ -3,10 +3,26 @@ import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { Article } from '@/components/article';
 
+export interface ContentfulArticleProps {
+  sys: {
+    id: string;
+  };
+  slug: string;
+  title: string;
+  summary: string;
+  author: string;
+  heroImage?: {
+    url: string;
+  };
+  details: {
+    json: any; // Replace this with a more specific type if known. This is just a placeholder.
+  };
+}
+
 export async function generateStaticParams() {
   const allArticles = await getAllArticles();
 
-  return allArticles.map((article: any) => ({
+  return allArticles.map((article: ContentfulArticleProps) => ({
     slug: article.slug,
   }));
 }
@@ -27,7 +43,7 @@ export default async function KnowledgeArticlePage({
     <main className='flex min-h-screen flex-col items-center justify-between p-24 bg-white'>
       <section className='w-full'>
         <div className='container space-y-12 px-4 md:px-6'>
-          <Article article={article} isEnabled />
+          <Article article={article} />
         </div>
       </section>
     </main>
