@@ -15,7 +15,7 @@ export interface ContentfulArticleProps {
     url: string;
   };
   details: {
-    json: any; // Replace this with a more specific type if known. This is just a placeholder.
+    json: any;
   };
 }
 
