@@ -23,5 +23,7 @@ export async function GET(request: Request) {
   }
 
   draftMode().enable();
-  redirect(`/blogs/${blog.slug}?x-vercel-protection-bypass=${bypass}`);
+  redirect(
+    `/blogs/${blog.slug}?x-vercel-protection-bypass=${bypass}&x-vercel-set-bypass-cookie=samesitenone`
+  );
 }
