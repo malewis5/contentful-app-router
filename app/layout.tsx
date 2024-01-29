@@ -18,9 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <ContentfulPreviewProvider>
-        <body className={inter.className}>{children}</body>
-      </ContentfulPreviewProvider>
+      <body className={inter.className}>
+        <ContentfulPreviewProvider>{children}</ContentfulPreviewProvider>
+      </body>
     </html>
   );
 }
