@@ -9,65 +9,64 @@ import { ContentfulBlogProps } from '@/app/blogs/[slug]/page';
 export const Blog = ({ blog }: { blog: ContentfulBlogProps }) => {
   const updatedBlog = useContentfulLiveUpdates(blog);
 
+  /**
+   * v0 by Vercel.
+   * @see https://v0.dev/t/J7Z73hr6h2u
+   * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
+   */
+
   return (
-    <>
-      <div className='space-y-4'>
-        <h1
-          className='text-4xl font-bold tracking-tighter sm:text-5xl'
-          {...ContentfulLivePreview.getProps({
-            entryId: blog.sys.id,
-            fieldId: 'title',
-          })}
-        >
-          {updatedBlog.title}
-        </h1>
-        <div className='flex justify-between flex-col md:flex-row'>
-          <p
-            className='max-w-[900px] text-zinc-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-zinc-400'
-            {...ContentfulLivePreview.getProps({
-              entryId: blog.sys.id,
-              fieldId: 'summary',
-            })}
-          >
-            {updatedBlog.summary}
-          </p>
-          <p
-            className='text-zinc-500 md:text-lg/relaxed lg:text-sm/relaxed xl:text-lg/relaxed dark:text-zinc-400 italic'
-            {...ContentfulLivePreview.getProps({
-              entryId: blog.sys.id,
-              fieldId: 'authorName',
-            })}
-          >
-            by: {updatedBlog.author}
-          </p>
-        </div>
-      </div>
-      <div className='space-y-8 lg:space-y-10'>
+    <main className='bg-white dark:bg-gray-900'>
+      <section className='relative h-[500px] md:h-[600px] lg:h-[700px] xl:h-[800px] 2xl:h-[900px]'>
         <Image
           alt='Article Image'
-          className='aspect-video w-full overflow-hidden rounded-xl object-cover'
-          height='365'
+          className='absolute inset-0 w-full h-full object-cover'
+          height='900'
+          style={{
+            aspectRatio: '1600/900',
+            objectFit: 'cover',
+          }}
           src={updatedBlog?.heroImage?.url ?? 'https://placehold.co/650x365'}
-          width='650'
+          width='1600'
           {...ContentfulLivePreview.getProps({
             entryId: blog.sys.id,
             fieldId: 'articleImage',
           })}
         />
-        <div className='space-y-4 md:space-y-6'>
-          <div className='space-y-2'>
-            <div
-              className='max-w-[900px] '
-              {...ContentfulLivePreview.getProps({
-                entryId: blog.sys.id,
-                fieldId: 'details',
-              })}
-            >
-              {documentToReactComponents(updatedBlog.details.json)}
-            </div>
-          </div>
+        <div className='absolute inset-0 bg-black bg-opacity-50' />
+        <div className='relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-center items-start'>
+          <h1
+            {...ContentfulLivePreview.getProps({
+              entryId: blog.sys.id,
+              fieldId: 'title',
+            })}
+            className='text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl'
+          >
+            {updatedBlog.title}
+          </h1>
+          <p className='mt-4 text-lg text-gray-300'>{updatedBlog.summary}</p>
+          <p
+            className='mt-4 text-md text-gray-400'
+            {...ContentfulLivePreview.getProps({
+              entryId: blog.sys.id,
+              fieldId: 'author',
+            })}
+          >
+            By {updatedBlog.author}
+          </p>
         </div>
-      </div>
-    </>
+      </section>
+      <section className='max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12'>
+        <article
+          className='mx-auto'
+          {...ContentfulLivePreview.getProps({
+            entryId: blog.sys.id,
+            fieldId: 'details',
+          })}
+        >
+          {documentToReactComponents(updatedBlog.details.json)}
+        </article>
+      </section>
+    </main>
   );
 };
