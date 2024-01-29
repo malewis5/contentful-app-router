@@ -30,7 +30,11 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function BlogPage({ params }: { params: any }) {
+export default async function BlogPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const { isEnabled } = draftMode();
   const blog = await getBlog(params.slug, isEnabled);
 
