@@ -9,12 +9,6 @@ import { ContentfulBlogProps } from '@/app/blogs/[slug]/page';
 export const Blog = ({ blog }: { blog: ContentfulBlogProps }) => {
   const updatedBlog = useContentfulLiveUpdates(blog);
 
-  /**
-   * v0 by Vercel.
-   * @see https://v0.dev/t/J7Z73hr6h2u
-   * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
-   */
-
   return (
     <main className='bg-white dark:bg-gray-900'>
       <section className='relative h-[500px] md:h-[600px] lg:h-[700px] xl:h-[800px] 2xl:h-[900px]'>

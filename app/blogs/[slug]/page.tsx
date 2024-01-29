@@ -2,7 +2,6 @@ import { getAllBlogs, getBlog } from '@/lib/contentful/api';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { Blog } from '@/components/article';
-import { ContentfulPreviewProvider } from '@/components/contentful-preview-provider';
 
 export interface ContentfulBlogProps {
   sys: {
