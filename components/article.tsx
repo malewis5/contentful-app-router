@@ -9,6 +9,8 @@ import { ContentfulBlogProps } from '@/app/blogs/[slug]/page';
 export const Blog = ({ blog }: { blog: ContentfulBlogProps }) => {
   const updatedBlog = useContentfulLiveUpdates(blog);
 
+  console.log('updatedBlog', updatedBlog);
+
   return (
     <main className='bg-white dark:bg-gray-900'>
       <section className='relative h-[500px] md:h-[600px] lg:h-[700px] xl:h-[800px] 2xl:h-[900px]'>
@@ -38,7 +40,15 @@ export const Blog = ({ blog }: { blog: ContentfulBlogProps }) => {
           >
             {updatedBlog.title}
           </h1>
-          <p className='mt-4 text-lg text-gray-300'>{updatedBlog.summary}</p>
+          <p
+            {...ContentfulLivePreview.getProps({
+              entryId: blog.sys.id,
+              fieldId: 'summary',
+            })}
+            className='mt-4 text-lg text-gray-300'
+          >
+            {updatedBlog.summary}
+          </p>
           <p
             className='mt-4 text-md text-gray-400'
             {...ContentfulLivePreview.getProps({
