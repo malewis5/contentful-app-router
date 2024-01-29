@@ -4,10 +4,10 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import Image from 'next/image';
 import { useContentfulLiveUpdates } from '@contentful/live-preview/react';
 import { ContentfulLivePreview } from '@contentful/live-preview';
-import { ContentfulArticleProps } from '@/app/articles/[slug]/page';
+import { ContentfulBlogProps } from '@/app/blogs/[slug]/page';
 
-export const Article = ({ article }: { article: ContentfulArticleProps }) => {
-  const updatedArticle = useContentfulLiveUpdates(article);
+export const Blog = ({ blog }: { blog: ContentfulBlogProps }) => {
+  const updatedBlog = useContentfulLiveUpdates(blog);
 
   return (
     <>
@@ -15,30 +15,30 @@ export const Article = ({ article }: { article: ContentfulArticleProps }) => {
         <h1
           className='text-4xl font-bold tracking-tighter sm:text-5xl'
           {...ContentfulLivePreview.getProps({
-            entryId: article.sys.id,
+            entryId: blog.sys.id,
             fieldId: 'title',
           })}
         >
-          {updatedArticle.title}
+          {updatedBlog.title}
         </h1>
         <div className='flex justify-between flex-col md:flex-row'>
           <p
             className='max-w-[900px] text-zinc-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-zinc-400'
             {...ContentfulLivePreview.getProps({
-              entryId: article.sys.id,
+              entryId: blog.sys.id,
               fieldId: 'summary',
             })}
           >
-            {updatedArticle.summary}
+            {updatedBlog.summary}
           </p>
           <p
             className='text-zinc-500 md:text-lg/relaxed lg:text-sm/relaxed xl:text-lg/relaxed dark:text-zinc-400 italic'
             {...ContentfulLivePreview.getProps({
-              entryId: article.sys.id,
+              entryId: blog.sys.id,
               fieldId: 'authorName',
             })}
           >
-            by: {updatedArticle.author}
+            by: {updatedBlog.author}
           </p>
         </div>
       </div>
@@ -47,10 +47,10 @@ export const Article = ({ article }: { article: ContentfulArticleProps }) => {
           alt='Article Image'
           className='aspect-video w-full overflow-hidden rounded-xl object-cover'
           height='365'
-          src={updatedArticle?.heroImage?.url ?? 'https://placehold.co/650x365'}
+          src={updatedBlog?.heroImage?.url ?? 'https://placehold.co/650x365'}
           width='650'
           {...ContentfulLivePreview.getProps({
-            entryId: article.sys.id,
+            entryId: blog.sys.id,
             fieldId: 'articleImage',
           })}
         />
@@ -59,11 +59,11 @@ export const Article = ({ article }: { article: ContentfulArticleProps }) => {
             <div
               className='max-w-[900px] text-zinc-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-zinc-400'
               {...ContentfulLivePreview.getProps({
-                entryId: article.sys.id,
+                entryId: blog.sys.id,
                 fieldId: 'details',
               })}
             >
-              {documentToReactComponents(updatedArticle.details.json)}
+              {documentToReactComponents(updatedBlog.details.json)}
             </div>
           </div>
         </div>

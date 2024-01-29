@@ -1,6 +1,6 @@
-// Set a variable that contains all the fields needed for articles when a fetch for
+// Set a variable that contains all the fields needed for blogs when a fetch for
 // content is performed
-const ARTICLE_GRAPHQL_FIELDS = `
+const BLOG_GRAPHQL_FIELDS = `
   sys {
     id
   }
@@ -23,9 +23,9 @@ const ARTICLE_GRAPHQL_FIELDS = `
     }
   }
   date
-  authorName
+  author
   categoryName
-  articleImage {
+  heroImage {
     url
   }
 `;
@@ -50,7 +50,7 @@ async function fetchGraphQL(
         }`,
       },
       body: JSON.stringify({ query }),
-      // Associate all fetches for articles with an "articles" cache tag so content can
+      // Associate all fetches for blogs with an "blogs" cache tag so content can
       // be revalidated or updated from Contentful on publish
 
       next: { tags },
@@ -58,48 +58,49 @@ async function fetchGraphQL(
   ).then((response) => response.json());
 }
 
-function extractArticleEntries(fetchResponse: {
-  data: { knowledgeArticleCollection: { items: any } };
+function extractBlogEntries(fetchResponse: {
+  data: { blogPostCollection: { items: any } };
 }) {
-  return fetchResponse?.data?.knowledgeArticleCollection?.items;
+  return fetchResponse?.data?.blogPostCollection?.items;
 }
 
-export async function getAllArticles(
-  // For this demo set the default limit to always return 3 articles.
+export async function getAllBlogs(
+  // For this demo set the default limit to always return 3 blogs.
   limit = 3,
   // By default this function will return published content but will provide an option to
-  // return draft content for reviewing articles before they are live
+  // return draft content for reviewing blogs before they are live
   isDraftMode = false
 ) {
-  const articles = await fetchGraphQL(
+  const blogs = await fetchGraphQL(
     `query {
-        knowledgeArticleCollection(where:{slug_exists: true}, order: date_DESC, limit: ${limit}, preview: ${
+      blogPostCollection(where:{slug_exists: true}, order: date_DESC, limit: ${limit}, preview: ${
       isDraftMode ? 'true' : 'false'
     }) {
           items {
-            ${ARTICLE_GRAPHQL_FIELDS}
+            ${BLOG_GRAPHQL_FIELDS}
           }
         }
       }`,
     isDraftMode,
-    ['articles']
+    ['blogs']
   );
-  return extractArticleEntries(articles);
+
+  return extractBlogEntries(blogs);
 }
 
-export async function getArticle(slug: string, isDraftMode = false) {
-  const article = await fetchGraphQL(
+export async function getBlog(slug: string, isDraftMode = false) {
+  const blog = await fetchGraphQL(
     `query {
-        knowledgeArticleCollection(where:{slug: "${slug}"}, limit: 1, preview: ${
+      blogPostCollection(where:{slug: "${slug}"}, limit: 1, preview: ${
       isDraftMode ? 'true' : 'false'
     }) {
           items {
-            ${ARTICLE_GRAPHQL_FIELDS}
+            ${BLOG_GRAPHQL_FIELDS}
           }
         }
       }`,
     isDraftMode,
     [slug]
   );
-  return extractArticleEntries(article)[0];
+  return extractBlogEntries(blog)[0];
 }

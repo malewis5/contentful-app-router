@@ -1,4 +1,4 @@
-import { getArticle } from '@/lib/contentful/api';
+import { getBlog } from '@/lib/contentful/api';
 import { draftMode } from 'next/headers';
 import { redirect } from 'next/navigation';
 
@@ -16,12 +16,12 @@ export async function GET(request: Request) {
     return new Response('Invalid token', { status: 401 });
   }
 
-  const article = await getArticle(slug);
+  const blog = await getBlog(slug);
 
-  if (!article) {
-    return new Response('Article not found', { status: 404 });
+  if (!blog) {
+    return new Response('Blog not found', { status: 404 });
   }
 
   draftMode().enable();
-  redirect(`/articles/${article.slug}?x-vercel-protection-bypass=${bypass}`);
+  redirect(`/blogs/${blog.slug}?x-vercel-protection-bypass=${bypass}`);
 }
