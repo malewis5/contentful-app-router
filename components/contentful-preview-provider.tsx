@@ -9,7 +9,7 @@ export function ContentfulPreviewProvider({
   ...props
 }: PropsWithChildren<ContentfulLivePreviewInitConfig>) {
   return (
-    <ContentfulLivePreviewProvider locale={props.locale}>
+    <ContentfulLivePreviewProvider {...props}>
       {children}
     </ContentfulLivePreviewProvider>
   );
