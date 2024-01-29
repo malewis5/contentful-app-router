@@ -8,7 +8,7 @@ export function ContentfulPreviewProvider({
   children: React.ReactNode;
 }) {
   return (
-    <ContentfulLivePreviewProvider locale={'en-US'}>
+    <ContentfulLivePreviewProvider locale='en-US' debugMode={true}>
       {children}
     </ContentfulLivePreviewProvider>
   );
