@@ -6,7 +6,6 @@ export function ContentfulPreviewProvider({
   children,
 }: {
   children: React.ReactNode;
-  locale: string;
 }) {
   return (
     <ContentfulLivePreviewProvider locale={'en-US'}>
