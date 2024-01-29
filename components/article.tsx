@@ -57,7 +57,7 @@ export const Blog = ({ blog }: { blog: ContentfulBlogProps }) => {
         <div className='space-y-4 md:space-y-6'>
           <div className='space-y-2'>
             <div
-              className='max-w-[900px] text-zinc-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-zinc-400'
+              className='max-w-[900px] '
               {...ContentfulLivePreview.getProps({
                 entryId: blog.sys.id,
                 fieldId: 'details',
