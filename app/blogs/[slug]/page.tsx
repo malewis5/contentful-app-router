@@ -42,9 +42,7 @@ export default async function BlogPage({ params }: { params: any }) {
     <main className='flex min-h-screen flex-col items-center justify-between p-24 bg-white'>
       <section className='w-full'>
         <div className='container space-y-12 px-4 md:px-6'>
-          <ContentfulPreviewProvider>
-            <Blog blog={blog} />
-          </ContentfulPreviewProvider>
+          <Blog blog={blog} />
         </div>
       </section>
     </main>
