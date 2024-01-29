@@ -58,7 +58,7 @@ export const Blog = ({ blog }: { blog: ContentfulBlogProps }) => {
       </section>
       <section className='max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12'>
         <article
-          className='prose prose-lg text-gray-500 mx-auto dark:text-gray-400'
+          className='mx-auto'
           {...ContentfulLivePreview.getProps({
             entryId: blog.sys.id,
             fieldId: 'details',
